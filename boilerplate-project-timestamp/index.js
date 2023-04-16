@@ -41,28 +41,29 @@ app.get("/api/:time", function (req, res) {
   let unix = currentTime.getTime()
   let utc = currentTime.toUTCString()
 
-  console.log("input", inputTime);
-
   if (inputTime) {
     // check valid YYYY-mm-dd format
-    let validDate1 = new Date(inputTime)
+    let dateOne = new Date(inputTime)
     // check valid unix time
-    let validDate2 = new Date(parseInt(inputTime))
+    let dateTwo = new Date(parseInt(inputTime))
 
-    if (isNaN(validDate1.getMonth()) && isNaN(validDate2.getMonth())) {
+    let validOne = isNaN(dateOne.getMonth())
+    let validTwo = isNaN(dateTwo.getMonth())
+
+    if (validOne && validTwo) {
       res.json({ error: "Invalid Date" })
     }
 
-    if (isNaN(validDate1.getMonth())) {
+    if (validOne) {
       res.json({
         "unix": parseInt(inputTime),
-        "utc": validDate2.toUTCString()
+        "utc": validTwo.toUTCString()
       })
     }
     else {
       res.json({
-        "unix": validDate1.getTime(),
-        "utc": validDate1.toUTCString()
+        "unix": dateOne.getTime(),
+        "utc": dateOne.toUTCString()
       })
     }
   }
