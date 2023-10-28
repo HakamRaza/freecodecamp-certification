@@ -108,7 +108,7 @@ app.post("/api/users/:id/exercises", (req, res) => {
                   res.json({ error: "Failed to find exercise" });
                 } else {
                   res.json({
-                    _id: exercise._id,
+                    _id: user._id,
                     username: user.username,
                     date: exercise.date.toDateString(),
                     duration: exercise.duration,
